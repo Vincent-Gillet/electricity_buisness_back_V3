@@ -67,6 +67,26 @@ public class UtilisateurService {
     }
 
     /**
+     * Récupère un utilisateur par son pseudo.
+     * @param pseudo Le pseudo de l'utilisateur à récupérer
+     * @return Un Optional contenant l'utilisateur si trouvé, sinon vide
+     */
+    @Transactional(readOnly = true)
+    public Optional<Utilisateur> findByPseudo(String pseudo) {
+        return utilisateurRepository.findByPseudo(pseudo);
+    }
+
+    /**
+     * Récupère un utilisateur par son adresse email.
+     * @param adresseMail L'adresse email de l'utilisateur à récupérer
+     * @return Un Optional contenant l'utilisateur si trouvé, sinon vide
+     */
+    @Transactional(readOnly = true)
+    public Optional<Utilisateur> findByUtilisateurEmail(String adresseMail) {
+        return utilisateurRepository.findByUtilisateurEmail(adresseMail);
+    }
+
+    /**
      * Vérifie si un utilisateur existe.
      * @param id L'identifiant de l'utilisateur à vérifier
      * @return true si l'utilisateur existe, sinon false
@@ -74,6 +94,21 @@ public class UtilisateurService {
     @Transactional(readOnly = true)
     public boolean existsById(Long id) {
         return utilisateurRepository.existsById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean existsByPseudo(String pseudo) {
+        return utilisateurRepository.existsByPseudo(pseudo);
+    }
+
+    /**
+     * Vérifie si une adresse email est déjà utilisée par un utilisateur.
+     * @param adresseMail L'adresse email à vérifier
+     * @return true si l'adresse email existe, sinon false
+     */
+    @Transactional(readOnly = true)
+    public boolean existsByAdresseMail(String adresseMail) {
+        return utilisateurRepository.existsByAdresseMail(adresseMail);
     }
 
 }

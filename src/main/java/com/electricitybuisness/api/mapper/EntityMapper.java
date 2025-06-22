@@ -1,0 +1,83 @@
+package com.electricitybuisness.api.mapper;
+
+
+import com.electricitybuisness.api.dto.*;
+import com.electricitybuisness.api.model.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
+/**
+ * Mapper pour convertir entre entités JPA et DTOs
+ * Évite les références circulaires en contrôlant la sérialisation
+ */
+@Component
+public class EntityMapper {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    // === UTILISATEUR ===
+    public UtilisateurDTO toDTO(Utilisateur utilisateur) {
+        if (utilisateur == null) return null;
+        return new UtilisateurDTO(
+                utilisateur.getIdUtilisateur(),
+                utilisateur.getNomUtilisateur(),
+                utilisateur.getPrenom(),
+                utilisateur.getPseudo(),
+                utilisateur.getEmailUtilisateur(),
+                utilisateur.getRole(),
+                utilisateur.getDateDeNaissance(),
+                utilisateur.getIban(),
+                utilisateur.getBanni()
+        );
+    }
+
+    public Utilisateur toEntity(UtilisateurDTO dto) {
+        if (dto == null) return null;
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setIdUtilisateur(dto.getId());
+        utilisateur.setNomUtilisateur(dto.getNomUtilisateur());
+        utilisateur.setPrenom(dto.getPrenom());
+        utilisateur.setPseudo(dto.getPseudo());
+        utilisateur.setRole(dto.getRole());
+        utilisateur.setEmailUtilisateur(dto.getEmailUtilisateur());
+        utilisateur.setDateDeNaissance(dto.getDateDeNaissance());
+        utilisateur.setIban(dto.getIban());
+        utilisateur.setBanni(dto.getBanni());
+        return utilisateur;
+    }
+
+    // === UTILISATEUR CREATE ===
+
+    public UtilisateurCreateDTO toCreateDTO(Utilisateur utilisateur) {
+        if (utilisateur == null) return null;
+        return new UtilisateurCreateDTO(
+                utilisateur.getNomUtilisateur(),
+                utilisateur.getPrenom(),
+                utilisateur.getPseudo(),
+                utilisateur.getMotDePasseUtilisateur(),
+                utilisateur.getEmailUtilisateur(),
+                utilisateur.getDateDeNaissance()
+        );
+    }
+
+    public Utilisateur toEntity(UtilisateurCreateDTO dto) {
+        if (dto == null) return null;
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setNomUtilisateur(dto.getUtilisateurNom());
+        utilisateur.setPrenom(dto.getPrenom());
+        utilisateur.setPseudo(dto.getPseudo());
+        utilisateur.setRole(RoleUtilisateur.UTILISATEUR);
+        utilisateur.setMotDePasseUtilisateur(passwordEncoder.encode(dto.getUtilisateurMotDePasse()));
+        utilisateur.setEmailUtilisateur(dto.getUtilisateurEmail());
+        utilisateur.setDateDeNaissance(dto.getDateDeNaissance());
+        utilisateur.setIban(null);
+        utilisateur.setBanni(false);
+
+        return utilisateur;
+    }
+
+
+}

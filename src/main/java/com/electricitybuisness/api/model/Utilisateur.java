@@ -35,28 +35,30 @@ public class Utilisateur {
     private Long idUtilisateur;
 
     @JsonProperty("nom_utilisateur")
-    @NotBlank
+    @NotBlank(message = "Le nom de l'utilisateur est obligatoire")
     @Length(min = 2, max = 50)
     private String nomUtilisateur;
 
-    @NotNull
+    @NotNull(message = "Le prénom est obligatoire")
     @Length(min = 2, max = 50)
     private String prenom;
 
     @Column(unique = true)
-    @NotNull
+    @NotNull(message = "Le pseudo est obligatoire")
     private String pseudo;
 
     @Column(unique = true)
-    @Email
-    @NotBlank
+    @Email(message = "L'adresse email doit être valide")
+    @NotBlank(message = "L'adresse email est obligatoire")
     private String emailUtilisateur;
 
     @Column(name = "mot_de_passe")
-    @NotBlank
+    @NotBlank(message = "Le mot de passe est obligatoire")
     private String motDePasseUtilisateur;
 
+    @Column(name = "role")
     @Enumerated
+    @NotNull(message = "Le rôle est obligatoire")
     private RoleUtilisateur role = RoleUtilisateur.UTILISATEUR;
 
     @Override
@@ -74,14 +76,17 @@ public class Utilisateur {
         return emailUtilisateur;
     }
 
-    @NotNull
+    @Column(name = "date_de_naissance")
+    @NotNull(message = "La date de naissance est obligatoire")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateDeNaissance;
 
+    @Column(name = "iban", unique = true)
     @Length(min = 27, max = 27)
     private String iban;
 
-    @NotNull
+    @Column(name = "banni")
+    @NotNull(message = "Le statut de bannissement est obligatoire")
     private Boolean banni = false;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -32,9 +32,11 @@ public class BorneReparateur {
     private Borne borne;
 
     @Column(name = "reference", length = 100, nullable = false)
+    @NotBlank(message = "La référence est obligatoire")
     private String reference;
 
     @Column(name = "date_reparation")
+    @NotBlank(message = "La date de réparation est obligatoire")
     private LocalDate date_reparation;
 
     @Column(name = "description")

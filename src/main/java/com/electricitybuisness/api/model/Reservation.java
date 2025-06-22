@@ -2,6 +2,7 @@ package com.electricitybuisness.api.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,19 +44,29 @@ public class Reservation {
     @JoinColumn(name = "id_servivce_sup", referencedColumnName = "id", insertable= false, updatable = false)
     private Option option;
 
+    @Column(name = "num_reservation", length = 20, nullable = false, unique = true)
+    @NotBlank(message = "Le numéro de réservation est obligatoire")
     private String numReservation;
 
+    @Column(name = "statut_reservation")
+    @NotNull(message = "Le statut de la réservation est obligatoire")
     @Enumerated
     private StatutReservation statut;
 
+    @Column(name = "montant_paye")
+    @NotNull(message = "Le montant payé est obligatoire")
     private BigDecimal montantPaye;
 
+    @Column(name = "date_paiement")
+    @NotNull(message = "La date de paiement est obligatoire")
     private LocalDateTime datePaiement;
 
+    @Column(name = "date_debut")
     @NotNull(message = "La date de début est obligatoire")
     @Future(message = "La date de début doit être dans le futur")
     private LocalDateTime dateDebut;
 
+    @Column(name = "date_fin")
     @NotNull(message = "La date de fin est obligatoire")
     private LocalDateTime dateFin;
 

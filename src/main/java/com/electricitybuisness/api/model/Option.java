@@ -1,6 +1,7 @@
 package com.electricitybuisness.api.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,7 +28,7 @@ public class Option {
     private Long idOption;
 
     @Column(name = "nom_option", length = 100, nullable = false)
-    @NotNull(message = "Le nom de l'option est obligatoire")
+    @NotBlank(message = "Le nom de l'option est obligatoire")
     private String nomOption;
 
     @Column(name = "tarif_option")
@@ -35,7 +36,7 @@ public class Option {
     private BigDecimal tarifOption;
 
     @Column(name = "description_option")
-    @NotNull(message = "La description de l'option est obligatoire")
+    @NotBlank(message = "La description de l'option est obligatoire")
     private String descriptionOption;
 
     @OneToMany(mappedBy = "options")

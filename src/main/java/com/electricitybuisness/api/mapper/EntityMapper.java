@@ -239,5 +239,25 @@ public class EntityMapper {
         return media;
     }
 
+    // === REPARATEUR ===
+
+    public ReparateurDTO toDTO(Reparateur reparateur) {
+        if (reparateur == null) return null;
+        return new ReparateurDTO(
+                reparateur.getIdReparateur(),
+                reparateur.getNomReparateur(),
+                reparateur.getEmailReparateur()
+        );
+    }
+
+    public Reparateur toEntity(ReparateurDTO dto) {
+        if (dto == null) return null;
+        Reparateur reparateur = new Reparateur();
+        reparateur.setIdReparateur(dto.getId());
+        reparateur.setNomReparateur(dto.getNomReparateur());
+        reparateur.setEmailReparateur(dto.getEmailReparateur());
+        return reparateur;
+    }
+
 
 }

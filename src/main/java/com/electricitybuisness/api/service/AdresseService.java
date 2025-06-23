@@ -9,6 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service pour gérer les opérations liées aux adresses.
+ * Fournit des méthodes pour récupérer, créer, mettre à jour et supprimer des adresses.
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -16,7 +20,7 @@ public class AdresseService {
     private final AdresseRepository adresseRepository;
 
     /**
-     * Récupère tous les adresse.
+     * Récupère toutes les adresses.
      * @return Une liste de toutes les adresses
      */
     @Transactional(readOnly = true)
@@ -63,7 +67,7 @@ public class AdresseService {
 
 
     /**
-     * Vérifie si une vehicule existe.
+     * Vérifie si une adresse existe.
      * @param id L'identifiant de l'adresse à vérifier
      * @return true si l'adresse existe, sinon false
      */

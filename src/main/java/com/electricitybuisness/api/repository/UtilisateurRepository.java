@@ -10,7 +10,6 @@ import java.util.Optional;
  * Interface de gestion des opérations CRUD pour les utilisateurs.
  * Hérite de JpaRepository pour les opérations de base de données.
  */
-
 @Repository
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
 

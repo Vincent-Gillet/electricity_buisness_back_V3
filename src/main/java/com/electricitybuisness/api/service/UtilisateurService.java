@@ -13,7 +13,6 @@ import java.util.Optional;
  * Service pour gérer les opérations liées aux utilisateurs.
  * Fournit des méthodes pour récupérer, créer, mettre à jour et supprimer des utilisateurs.
  */
-
 @Service
 @RequiredArgsConstructor
 @Transactional

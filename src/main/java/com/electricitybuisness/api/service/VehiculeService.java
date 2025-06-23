@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service pour gérer les opérations liées aux véhicules.
+ * Fournit des méthodes pour récupérer, créer, mettre à jour et supprimer des véhicules.
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional

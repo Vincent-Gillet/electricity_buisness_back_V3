@@ -175,5 +175,19 @@ public class EntityMapper {
         return adresse;
     }
 
+    // === LIEU ===
+    public LieuDTO toDTO(Lieu lieu) {
+        if (lieu == null) return null;
+        return new LieuDTO(lieu.getIdLieu(), lieu.getInstructions());
+    }
+
+    public Lieu toEntity(LieuDTO dto) {
+        if (dto == null) return null;
+        Lieu lieu = new Lieu();
+        lieu.setIdLieu(dto.getId());
+        lieu.setInstructions(dto.getInstructions());
+        return lieu;
+    }
+
 
 }

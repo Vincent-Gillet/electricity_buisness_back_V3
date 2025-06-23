@@ -11,7 +11,6 @@ import java.util.List;
  * Interface de gestion des opérations CRUD pour les bornes.
  * Hérite de JpaRepository pour les opérations de base de données.
  */
-
 @Repository
 public interface BorneRepository extends JpaRepository<Borne, Long> {
     List<Borne> findByLieu(Lieu lieu);

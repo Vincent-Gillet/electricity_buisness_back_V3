@@ -2,6 +2,7 @@ package com.electricitybuisness.api.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,7 +44,8 @@ public class Media {
     @Column(name = "taille")
     private String taille;
 
-    @Column(name = "date_creation", nullable = false)
+    @Column(name = "date_creation")
+    @NotNull(message = "La date de création est obligatoire")
     private LocalDateTime dateCreation = LocalDateTime.now();
 
     @ManyToOne

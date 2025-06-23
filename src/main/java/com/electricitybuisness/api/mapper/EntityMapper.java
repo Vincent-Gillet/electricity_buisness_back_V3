@@ -211,5 +211,33 @@ public class EntityMapper {
         return serviceSup;
     }
 
+    // === MEDIA ===
+    public MediaDTO toDTO(Media media) {
+        if (media == null) return null;
+        return new MediaDTO(
+                media.getIdMedia(),
+                media.getNomMedia(),
+                media.getType(),
+                media.getUrl(),
+                media.getDescriptionMedia(),
+                media.getTaille(),
+                media.getDateCreation()
+        );
+    }
+
+    public Media toEntity(MediaDTO dto) {
+        if (dto == null) return null;
+        Media media = new Media();
+        media.setIdMedia(dto.getId());
+        media.setNomMedia(dto.getNomMedia());
+        media.setType(dto.getType());
+        media.setUrl(dto.getUrl());
+        media.setDescriptionMedia(dto.getDescriptionMedia());
+        media.setTaille(dto.getTaille());
+        media.setDateCreation(dto.getDateCreation());
+
+        return media;
+    }
+
 
 }

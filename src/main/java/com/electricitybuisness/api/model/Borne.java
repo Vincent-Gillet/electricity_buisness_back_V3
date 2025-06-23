@@ -18,7 +18,6 @@ import java.util.Set;
  * Entité représentant une borne électrique dans le système.
  * Une borne appartient à un lieu et peut avoir des réservations et des tarifs.
  */
-
 @Data
 @Entity
 @Table(name = "bornes")

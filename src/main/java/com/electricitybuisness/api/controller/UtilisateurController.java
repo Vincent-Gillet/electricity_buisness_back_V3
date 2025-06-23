@@ -108,4 +108,32 @@ public class UtilisateurController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Récupère un utilisateur par son pseudo.
+     * GET /api/utilisateurs/pseudo/{pseudo}
+     * @param pseudo Le pseudo de l'utilisateur à récupérer
+     * @return L'utilisateur correspondant au pseudo, ou un statut HTTP 404 Not Found si non trouvé
+     */
+    @GetMapping("/pseudo/{pseudo}")
+    public ResponseEntity<UtilisateurDTO> getUtilisateurByPseudo(@PathVariable String pseudo) {
+        return utilisateurService.findByPseudo(pseudo)
+                .map(utilisateur -> ResponseEntity.ok(mapper.toDTO(utilisateur)))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    /**
+     * Récupère un utilisateur par son adresse email.
+     * GET /api/utilisateurs/email/{email}
+     * @param email L'adresse email de l'utilisateur à récupérer
+     * @return L'utilisateur correspondant à l'email, ou un statut HTTP 404 Not Found si non trouvé
+     */
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UtilisateurDTO> getUtilisateurByEmail(@PathVariable String email) {
+        return utilisateurService.findByUtilisateurEmail(email)
+                .map(utilisateur -> ResponseEntity.ok(mapper.toDTO(utilisateur)))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
+
 }

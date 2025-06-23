@@ -79,5 +79,41 @@ public class EntityMapper {
         return utilisateur;
     }
 
+    // === BORNE ===
+    public BorneDTO toDTO(Borne borne) {
+        if (borne == null) return null;
+        return new BorneDTO(
+                borne.getIdBorne(),
+                borne.getNomBorne(),
+                borne.getLatitude(),
+                borne.getLongitude(),
+                borne.getTarif(),
+                borne.getPuissance(),
+                borne.getInstruction(),
+                borne.getSurPied(),
+                borne.getEtatBorne(),
+                borne.getOccupee(),
+                borne.getDateCreation(),
+                borne.getDerniereMaintenance()
+        );
+    }
+
+    public Borne toEntity(BorneDTO dto) {
+        if (dto == null) return null;
+        Borne borne = new Borne();
+        borne.setIdBorne(dto.getId());
+        borne.setNomBorne(dto.getNomBorne());
+        borne.setLatitude(dto.getLatitude());
+        borne.setLongitude(dto.getLongitude());
+        borne.setPuissance(dto.getPuissance());
+        borne.setInstruction(dto.getInstruction());
+        borne.setSurPied(dto.getSurPied());
+        borne.setEtatBorne(dto.getEtatBorne());
+        borne.setOccupee(dto.getOccupee());
+        borne.setDateCreation(dto.getDateCreation());
+        borne.setDerniereMaintenance(dto.getDerniereMaintenance());
+        return borne;
+    }
+
 
 }

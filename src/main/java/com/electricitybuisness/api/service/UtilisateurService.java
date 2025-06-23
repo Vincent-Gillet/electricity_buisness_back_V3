@@ -96,6 +96,11 @@ public class UtilisateurService {
         return utilisateurRepository.existsById(id);
     }
 
+    /**
+     * Vérifie si un pseudo est déjà utilisé par un utilisateur.
+     * @param pseudo Le pseudo à vérifier
+     * @return true si le pseudo existe, sinon false
+     */
     @Transactional(readOnly = true)
     public boolean existsByPseudo(String pseudo) {
         return utilisateurRepository.existsByPseudo(pseudo);

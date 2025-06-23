@@ -259,5 +259,32 @@ public class EntityMapper {
         return reparateur;
     }
 
+    // === RESERVATION ===
+    public ReservationDTO toDTO(Reservation reservation) {
+        if (reservation == null) return null;
+        return new ReservationDTO(
+                reservation.getDateDebut(),
+                reservation.getDateFin(),
+                reservation.getStatut(),
+                reservation.getMontantPaye(),
+                reservation.getDatePaiement(),
+                reservation.getUtilisateur() != null ? reservation.getUtilisateur().getIdUtilisateur() : null,
+                reservation.getBorne() != null ? reservation.getBorne().getIdBorne() : null,
+                reservation.getVehicule() != null ? reservation.getVehicule().getIdVehicule() : null,
+                reservation.getOption() != null ? reservation.getOption().getIdOption() : null
+        );
+    }
+
+    public Reservation toEntity(ReservationDTO dto) {
+        if (dto == null) return null;
+        Reservation reservation = new Reservation();
+        reservation.setDateDebut(dto.getDateDebutReservation());
+        reservation.setDateFin(dto.getDateFinReservation());
+        reservation.setStatut(dto.getStatut());
+        reservation.setMontantPaye(dto.getMontantPaye());
+        return reservation;
+    }
+
+
 
 }

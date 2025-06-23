@@ -115,5 +115,31 @@ public class EntityMapper {
         return borne;
     }
 
+    // === VEHICULE ===
+
+    public VehiculeDTO toDTO(Vehicule vehicule) {
+        if (vehicule == null) return null;
+        return new VehiculeDTO(
+                vehicule.getIdVehicule(),
+                vehicule.getPlaqueImmatriculation(),
+                vehicule.getMarque(),
+                vehicule.getModele(),
+                vehicule.getAnnee(),
+                vehicule.getCapaciteBatterie()
+        );
+    }
+
+    public Vehicule toEntity(VehiculeDTO dto) {
+        if (dto == null) return null;
+        Vehicule vehicule = new Vehicule();
+        vehicule.setIdVehicule(dto.getId());
+        vehicule.setPlaqueImmatriculation(dto.getPlaqueImmatriculation());
+        vehicule.setMarque(dto.getMarque());
+        vehicule.setModele(dto.getModele());
+        vehicule.setAnnee(dto.getAnnee());
+        vehicule.setCapaciteBatterie(dto.getCapaciteBatterie());
+        return vehicule;
+    }
+
 
 }

@@ -142,4 +142,38 @@ public class EntityMapper {
     }
 
 
+    // === ADRESSE ===
+    public AdresseDTO toDTO(Adresse adresse) {
+        if (adresse == null) return null;
+        return new AdresseDTO(
+                adresse.getIdAdresse(),
+                adresse.getNomAdresse(),
+                adresse.getAdresse(),
+                adresse.getCodePostal(),
+                adresse.getVille(),
+                adresse.getPays(),
+                adresse.getRegion(),
+                adresse.getComplement(),
+                adresse.getEtage(),
+                toDTO(adresse.getLieu())
+        );
+    }
+
+    public Adresse toEntity(AdresseDTO dto) {
+        if (dto == null) return null;
+        Adresse adresse = new Adresse();
+        adresse.setIdAdresse(dto.getId());
+        adresse.setNomAdresse(dto.getNomAdresse());
+        adresse.setAdresse(dto.getAdresse());
+        adresse.setCodePostal(dto.getCodePostal());
+        adresse.setVille(dto.getVille());
+        adresse.setPays(dto.getPays());
+        adresse.setRegion(dto.getRegion());
+        adresse.setComplement(dto.getComplement());
+        adresse.setEtage(dto.getEtage());
+        adresse.setLieu(toEntity(dto.getLieu()));
+        return adresse;
+    }
+
+
 }

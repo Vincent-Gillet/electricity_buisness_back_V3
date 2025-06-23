@@ -189,5 +189,27 @@ public class EntityMapper {
         return lieu;
     }
 
+    // === SERVICE SUPPLEMENTAIRE ===
+
+    public OptionDTO toDTO(Option serviceSup) {
+        if (serviceSup == null) return null;
+        return new OptionDTO(
+                serviceSup.getIdOption(),
+                serviceSup.getNomOption(),
+                serviceSup.getTarifOption(),
+                serviceSup.getDescriptionOption()
+        );
+    }
+
+    public Option toEntity(OptionDTO dto) {
+        if (dto == null) return null;
+        Option serviceSup = new Option();
+        serviceSup.setIdOption(dto.getId());
+        serviceSup.setNomOption(dto.getNomOption());
+        serviceSup.setTarifOption(dto.getTarifOption());
+        serviceSup.setDescriptionOption(dto.getDescriptionOption());
+        return serviceSup;
+    }
+
 
 }

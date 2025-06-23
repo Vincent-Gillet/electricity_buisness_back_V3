@@ -2,7 +2,10 @@ package com.electricitybuisness.api.controller;
 
 import com.electricitybuisness.api.dto.ReservationDTO;
 import com.electricitybuisness.api.mapper.EntityMapper;
+import com.electricitybuisness.api.model.Borne;
 import com.electricitybuisness.api.model.Reservation;
+import com.electricitybuisness.api.model.StatutReservation;
+import com.electricitybuisness.api.model.Utilisateur;
 import com.electricitybuisness.api.service.ReservationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -101,6 +104,102 @@ public class ReservationController {
         reservationService.deleteReservationById(id);
         return ResponseEntity.noContent().build();
     }
+
+    /**
+     * Récupère les réservations par utilisateur.
+     * GET /api/reservations/utilisateur/{utilisateur}
+     * @param utilisateur L'utilisateur associé aux réservations
+     * @return Une liste de réservations correspondant à l'utilisateur
+     */
+    @GetMapping("/{utilisateur}")
+    public ResponseEntity<List<ReservationDTO>> getReservationsByUtilisateur(@PathVariable Utilisateur utilisateur) {
+        List<Reservation> reservations = reservationService.findByUtilisateur(utilisateur);
+        List<ReservationDTO> reservationDTO = reservations.stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(reservationDTO);
+    }
+
+    /**
+     * Récupère les réservations par borne.
+     * GET /api/reservations/borne/{borne}
+     * @param borne La borne associée aux réservations
+     * @return Une liste de réservations correspondant à la borne
+     */
+    @GetMapping("/{borne}")
+    public ResponseEntity<List<ReservationDTO>> getReservationsByBorne(@PathVariable Borne borne) {
+        List<Reservation> reservations = reservationService.findByBorne(borne);
+        List<ReservationDTO> reservationDTO = reservations.stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(reservationDTO);
+    }
+
+    /**
+     * Récupère les réservations par statut.
+     * GET /api/reservations/statut/{statut}
+     * @param statut Le statut des réservations à récupérer
+     * @return Une liste de réservations correspondant au statut
+     */
+    @GetMapping("/{statut}")
+    public ResponseEntity<List<ReservationDTO>> getReservationsByStatut(@PathVariable StatutReservation statut) {
+        List<Reservation> reservations = reservationService.findByStatut(statut);
+        List<ReservationDTO> reservationDTO = reservations.stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(reservationDTO);
+    }
+
+    /**
+     * Récupère les réservations par utilisateur et statut.
+     * GET /api/reservations/{utilisateur}/{statut}
+     * @param utilisateur L'utilisateur associé aux réservations
+     * @param statut Le statut des réservations à récupérer
+     * @return Une liste de réservations correspondant à l'utilisateur et au statut
+     */
+    @GetMapping("/{utilisateur}/{statut}")
+    public ResponseEntity<List<ReservationDTO>> getReservationsByUtilisateurAndStatut(@PathVariable Utilisateur utilisateur, StatutReservation statut) {
+        List<Reservation> reservations = reservationService.findByUtilisateurAndEtat(utilisateur, statut);
+        List<ReservationDTO> reservationDTO = reservations.stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(reservationDTO);
+    }
+
+    /**
+     * Récupère les réservations par borne et statut.
+     * GET /api/reservations/{borne}/{statut}
+     * @param borne La borne associée aux réservations
+     * @param statut Le statut des réservations à récupérer
+     * @return Une liste de réservations correspondant à la borne et au statut
+     */
+    @GetMapping("/{borne}/{statut}")
+    public ResponseEntity<List<ReservationDTO>> getReservationsByBorneAndStatut(@PathVariable Borne borne, StatutReservation statut) {
+        List<Reservation> reservations = reservationService.findByBorneAndEtat(borne, statut);
+        List<ReservationDTO> reservationDTO = reservations.stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(reservationDTO);
+    }
+
+    /**
+     * Récupère les réservations actives par borne.
+     * GET /api/reservations/{borne}/{actif}
+     * @param borne La borne associée aux réservations
+     * @param actif L'état actif des réservations à récupérer
+     * @return Une liste de réservations actives correspondant à la borne
+     */
+    @GetMapping("/{borne}/{actif}")
+    public ResponseEntity<List<ReservationDTO>> getReservationsByBorneAndActif(@PathVariable Borne borne, Boolean actif) {
+        List<Reservation> reservations = reservationService.findByBorneAndActif(borne, actif);
+        List<ReservationDTO> reservationDTO = reservations.stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(reservationDTO);
+    }
+
+
+
 
 }
 

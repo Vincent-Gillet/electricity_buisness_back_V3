@@ -82,6 +82,7 @@ public class ReservationService {
      * @param utilisateur L'utilisateur associé aux réservations
      * @return Une liste de réservations correspondant à l'utilisateur
      */
+    @Transactional(readOnly = true)
     public List<Reservation> findByUtilisateur(Utilisateur utilisateur) {
         return reservationRepository.findByUtilisateur(utilisateur);
     }
@@ -91,6 +92,7 @@ public class ReservationService {
      * @param borne La borne associée aux réservations
      * @return Une liste de réservations correspondant à la borne
      */
+    @Transactional(readOnly = true)
     public List<Reservation> findByBorne(Borne borne) {
         return reservationRepository.findByBorne(borne);
     }
@@ -100,7 +102,8 @@ public class ReservationService {
      * @param statut Le statut des réservations à récupérer
      * @return Une liste de réservations correspondant au statut
      */
-    public List<Reservation> findByEtat(StatutReservation statut) {
+    @Transactional(readOnly = true)
+    public List<Reservation> findByStatut(StatutReservation statut) {
         return reservationRepository.findByEtat(statut);
     }
 
@@ -110,6 +113,7 @@ public class ReservationService {
      * @param statut Le statut des réservations à récupérer
      * @return Une liste de réservations correspondant à l'utilisateur et au statut
      */
+    @Transactional(readOnly = true)
     public List<Reservation> findByUtilisateurAndEtat(Utilisateur utilisateur, StatutReservation statut) {
         return reservationRepository.findByUtilisateurAndEtat(utilisateur, statut);
     }
@@ -120,6 +124,7 @@ public class ReservationService {
      * @param statut Le statut des réservations à récupérer
      * @return Une liste de réservations correspondant à la borne et au statut
      */
+    @Transactional(readOnly = true)
     public List<Reservation> findByBorneAndEtat(Borne borne, StatutReservation statut) {
         return reservationRepository.findByBorneAndEtat(borne, statut);
     }
@@ -130,6 +135,7 @@ public class ReservationService {
      * @param actif L'état actif des réservations à récupérer
      * @return Une liste de réservations actives correspondant à la borne
      */
+    @Transactional(readOnly = true)
     public List<Reservation> findByBorneAndActif(Borne borne, Boolean actif) {
         return reservationRepository.findByBorneAndActif(borne, actif);
     }

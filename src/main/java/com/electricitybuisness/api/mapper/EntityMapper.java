@@ -5,9 +5,8 @@ import com.electricitybuisness.api.dto.*;
 import com.electricitybuisness.api.model.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-/*
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-*/
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,10 +16,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class EntityMapper {
 
-/*
     @Autowired
     private PasswordEncoder passwordEncoder;
-*/
+
+    BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+
+    String p1 = bc.encode("password");
 
     // === UTILISATEUR ===
     public UtilisateurDTO toDTO(Utilisateur utilisateur) {
@@ -59,9 +60,7 @@ public class EntityMapper {
                 utilisateur.getNomUtilisateur(),
                 utilisateur.getPrenom(),
                 utilisateur.getPseudo(),
-/*
                 utilisateur.getMotDePasseUtilisateur(),
-*/
                 utilisateur.getEmailUtilisateur(),
                 utilisateur.getDateDeNaissance()
         );
@@ -74,9 +73,7 @@ public class EntityMapper {
         utilisateur.setPrenom(dto.getPrenom());
         utilisateur.setPseudo(dto.getPseudo());
         utilisateur.setRole(RoleUtilisateur.UTILISATEUR);
-/*
         utilisateur.setMotDePasseUtilisateur(passwordEncoder.encode(dto.getUtilisateurMotDePasse()));
-*/
         utilisateur.setEmailUtilisateur(dto.getUtilisateurEmail());
         utilisateur.setDateDeNaissance(dto.getDateDeNaissance());
         utilisateur.setIban(null);

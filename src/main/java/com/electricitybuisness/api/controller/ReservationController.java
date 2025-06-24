@@ -189,14 +189,14 @@ public class ReservationController {
      * @param actif L'état actif des réservations à récupérer
      * @return Une liste de réservations actives correspondant à la borne
      */
-    @GetMapping("/{borne}/{actif}")
+/*    @GetMapping("/{borne}/{actif}")
     public ResponseEntity<List<ReservationDTO>> getReservationsByBorneAndActif(@PathVariable Borne borne, Boolean actif) {
         List<Reservation> reservations = reservationService.findByBorneAndActif(borne, actif);
         List<ReservationDTO> reservationDTO = reservations.stream()
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(reservationDTO);
-    }
+    }*/
 
 
 

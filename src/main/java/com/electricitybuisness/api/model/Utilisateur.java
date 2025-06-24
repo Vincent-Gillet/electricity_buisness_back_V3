@@ -10,8 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+/*import org.springframework.security.core.GrantedAuthority;*/
+/*import org.springframework.security.core.authority.SimpleGrantedAuthority;*/
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -52,16 +52,18 @@ public class Utilisateur {
     @NotBlank(message = "L'adresse email est obligatoire")
     private String emailUtilisateur;
 
+/*
     @Column(name = "mot_de_passe")
     @NotBlank(message = "Le mot de passe est obligatoire")
     private String motDePasseUtilisateur;
+*/
 
     @Column(name = "role")
     @Enumerated
     @NotNull(message = "Le rôle est obligatoire")
     private RoleUtilisateur role = RoleUtilisateur.UTILISATEUR;
 
-    @Override
+/*    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
@@ -74,7 +76,7 @@ public class Utilisateur {
     @Override
     public String getUsername() {
         return emailUtilisateur;
-    }
+    }*/
 
     @Column(name = "date_de_naissance")
     @NotNull(message = "La date de naissance est obligatoire")

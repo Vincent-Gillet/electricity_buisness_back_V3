@@ -93,7 +93,7 @@ public class BorneService {
      */
     @Transactional(readOnly = true)
     List<Borne> findByEtat(Borne etatBorne) {
-        return borneRepository.findByEtat(etatBorne);
+        return borneRepository.findByEtatBorne(etatBorne);
     }
 
     /**
@@ -114,7 +114,7 @@ public class BorneService {
      */
     @Transactional(readOnly = true)
     List<Borne> findByLieuAndEtat(Lieu lieu, Borne etatBorne) {
-        return borneRepository.findByLieuAndEtat(lieu, etatBorne);
+        return borneRepository.findByLieuAndEtatBorne(lieu, etatBorne);
     }
 
 

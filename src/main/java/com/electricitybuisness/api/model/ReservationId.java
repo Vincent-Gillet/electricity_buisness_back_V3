@@ -9,9 +9,9 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class ReservationId {
-    private Long utilisateurId;
-    private Long borneId;
-    private Long serviceSupId;
-    private Long vehicleId;
+    private Long idUtilisateur;
+    private Long idBorne;
+    private Long idOption;
+    private Long idVehicule;
 
 }

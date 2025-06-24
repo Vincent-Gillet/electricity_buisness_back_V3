@@ -17,7 +17,6 @@ import java.time.Year;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VehiculeDTO {
-    private Long id;
 
     @JsonProperty("plaqueImmatriculation")
     @NotBlank(message = "L'adresse email est obligatoire")

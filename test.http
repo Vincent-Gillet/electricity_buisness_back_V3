@@ -1,0 +1,46 @@
+### Récupérer la page d'accueil
+GET http://localhost:8080/
+
+### Connexion d'un utilisateur existant
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "utilisateurEmail": "jeanmartin@gmail.com",
+  "utilisateurMotDePasse": "azerty"
+}
+
+### Récupérer la liste des utilisateurs
+GET http://localhost:8080/api/utilisateurs
+
+### Récupérer un utilisateur par son ID
+GET http://localhost:8080/api/utilisateurs/1
+
+### Créer un nouvel utilisateur avec valeur par défaut
+POST http://localhost:8080/api/utilisateurs
+Content-Type: application/json
+
+{
+  "utilisateurNom": "Martin",
+  "prenom": "Jean",
+  "pseudo": "jeanmartin",
+  "utilisateurMotDePasse": "azerty",
+  "utilisateurEmail": "jeanmartin@gmail.com",
+  "dateDeNaissance": "2008-03-06"
+}
+
+### Mettre à jour un utilisateur par son ID
+PUT http://localhost:8080/api/utilisateurs/1
+Content-Type: application/json
+
+{
+  "utilisateurNom": "Doe",
+  "prenom": "John",
+  "pseudo": "johndeo_updated",
+  "utilisateurEmail": "johndeo@gmail.com",
+  "utilisateurMotDePasse": "new_password",
+  "dateDeNaissance": "2002-01-01"
+}
+
+### Supprimer un utilisateur par son ID
+DELETE http://127.0.0.1:8080/api/utilisateurs/1

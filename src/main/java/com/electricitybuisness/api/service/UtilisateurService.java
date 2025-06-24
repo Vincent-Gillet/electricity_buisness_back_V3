@@ -82,7 +82,7 @@ public class UtilisateurService {
      */
     @Transactional(readOnly = true)
     public Optional<Utilisateur> findByUtilisateurEmail(String adresseMail) {
-        return utilisateurRepository.findByUtilisateurEmail(adresseMail);
+        return utilisateurRepository.findByEmailUtilisateur(adresseMail);
     }
 
     /**
@@ -112,7 +112,7 @@ public class UtilisateurService {
      */
     @Transactional(readOnly = true)
     public boolean existsByAdresseMail(String adresseMail) {
-        return utilisateurRepository.existsByAdresseMail(adresseMail);
+        return utilisateurRepository.existsByEmailUtilisateur(adresseMail);
     }
 
 }

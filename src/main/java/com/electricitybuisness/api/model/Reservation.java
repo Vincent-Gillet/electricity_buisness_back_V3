@@ -29,19 +29,19 @@ public class Reservation {
     private Long idReservation;
 
     @ManyToOne
-    @JoinColumn(name = "id_utilisateur", referencedColumnName = "id", insertable= false, updatable = false)
+    @JoinColumn(name = "idUtilisateur", referencedColumnName = "id_utilisateur", insertable= false, updatable = false)
     private Utilisateur utilisateur;
 
     @ManyToOne
-    @JoinColumn(name = "id_vehicule", referencedColumnName = "id", insertable= false, updatable = false)
+    @JoinColumn(name = "idVehicule", referencedColumnName = "id_vehicule", insertable= false, updatable = false)
     private Vehicule vehicule;
 
     @ManyToOne
-    @JoinColumn(name = "id_borne", referencedColumnName = "id", insertable= false, updatable = false)
+    @JoinColumn(name = "idBorne", referencedColumnName = "id_borne", insertable= false, updatable = false)
     private Borne borne;
 
     @ManyToOne
-    @JoinColumn(name = "id_servivce_sup", referencedColumnName = "id", insertable= false, updatable = false)
+    @JoinColumn(name = "idOption", referencedColumnName = "id_option", insertable= false, updatable = false)
     private Option option;
 
     @Column(name = "num_reservation", length = 20, nullable = false, unique = true)

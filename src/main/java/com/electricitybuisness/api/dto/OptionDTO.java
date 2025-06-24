@@ -16,8 +16,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class OptionDTO {
 
-    private Long id;
-
     @NotNull(message = "Le nom de l'option est obligatoire")
     private String nomOption;
 

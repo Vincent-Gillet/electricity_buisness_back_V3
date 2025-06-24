@@ -49,11 +49,11 @@ public class Media {
     private LocalDateTime dateCreation = LocalDateTime.now();
 
     @ManyToOne
-    @JoinColumn(name = "options")
+    @JoinColumn(name = "id_options")
     private Option options;
 
     @ManyToOne
-    @JoinColumn(name = "borne")
+    @JoinColumn(name = "id_borne")
     private Borne borne;
 
     @ManyToMany(mappedBy = "medias")

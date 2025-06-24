@@ -15,11 +15,13 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     List<Reservation> findByBorne(Borne borne);
 
-    List<Reservation> findByEtat(StatutReservation statut);
+    List<Reservation> findByStatut(StatutReservation statut);
 
-    List<Reservation> findByUtilisateurAndEtat(Utilisateur utilisateur, StatutReservation statut);
+    List<Reservation> findByUtilisateurAndStatut(Utilisateur utilisateur, StatutReservation statut);
 
-    List<Reservation> findByBorneAndEtat(Borne borne, StatutReservation statut);
+    List<Reservation> findByBorneAndStatut(Borne borne, StatutReservation statut);
 
+/*
     List<Reservation> findByBorneAndActif(Borne borne, Boolean actif);
+*/
 }

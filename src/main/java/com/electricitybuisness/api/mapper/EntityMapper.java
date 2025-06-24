@@ -5,7 +5,9 @@ import com.electricitybuisness.api.dto.*;
 import com.electricitybuisness.api.model.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+/*
 import org.springframework.security.crypto.password.PasswordEncoder;
+*/
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,14 +17,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class EntityMapper {
 
+/*
     @Autowired
     private PasswordEncoder passwordEncoder;
+*/
 
     // === UTILISATEUR ===
     public UtilisateurDTO toDTO(Utilisateur utilisateur) {
         if (utilisateur == null) return null;
         return new UtilisateurDTO(
-                utilisateur.getIdUtilisateur(),
                 utilisateur.getNomUtilisateur(),
                 utilisateur.getPrenom(),
                 utilisateur.getPseudo(),
@@ -37,7 +40,6 @@ public class EntityMapper {
     public Utilisateur toEntity(UtilisateurDTO dto) {
         if (dto == null) return null;
         Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setIdUtilisateur(dto.getId());
         utilisateur.setNomUtilisateur(dto.getNomUtilisateur());
         utilisateur.setPrenom(dto.getPrenom());
         utilisateur.setPseudo(dto.getPseudo());
@@ -57,7 +59,9 @@ public class EntityMapper {
                 utilisateur.getNomUtilisateur(),
                 utilisateur.getPrenom(),
                 utilisateur.getPseudo(),
+/*
                 utilisateur.getMotDePasseUtilisateur(),
+*/
                 utilisateur.getEmailUtilisateur(),
                 utilisateur.getDateDeNaissance()
         );
@@ -70,7 +74,9 @@ public class EntityMapper {
         utilisateur.setPrenom(dto.getPrenom());
         utilisateur.setPseudo(dto.getPseudo());
         utilisateur.setRole(RoleUtilisateur.UTILISATEUR);
+/*
         utilisateur.setMotDePasseUtilisateur(passwordEncoder.encode(dto.getUtilisateurMotDePasse()));
+*/
         utilisateur.setEmailUtilisateur(dto.getUtilisateurEmail());
         utilisateur.setDateDeNaissance(dto.getDateDeNaissance());
         utilisateur.setIban(null);
@@ -83,7 +89,6 @@ public class EntityMapper {
     public BorneDTO toDTO(Borne borne) {
         if (borne == null) return null;
         return new BorneDTO(
-                borne.getIdBorne(),
                 borne.getNomBorne(),
                 borne.getLatitude(),
                 borne.getLongitude(),
@@ -101,7 +106,6 @@ public class EntityMapper {
     public Borne toEntity(BorneDTO dto) {
         if (dto == null) return null;
         Borne borne = new Borne();
-        borne.setIdBorne(dto.getId());
         borne.setNomBorne(dto.getNomBorne());
         borne.setLatitude(dto.getLatitude());
         borne.setLongitude(dto.getLongitude());
@@ -120,7 +124,6 @@ public class EntityMapper {
     public VehiculeDTO toDTO(Vehicule vehicule) {
         if (vehicule == null) return null;
         return new VehiculeDTO(
-                vehicule.getIdVehicule(),
                 vehicule.getPlaqueImmatriculation(),
                 vehicule.getMarque(),
                 vehicule.getModele(),
@@ -132,7 +135,6 @@ public class EntityMapper {
     public Vehicule toEntity(VehiculeDTO dto) {
         if (dto == null) return null;
         Vehicule vehicule = new Vehicule();
-        vehicule.setIdVehicule(dto.getId());
         vehicule.setPlaqueImmatriculation(dto.getPlaqueImmatriculation());
         vehicule.setMarque(dto.getMarque());
         vehicule.setModele(dto.getModele());
@@ -146,7 +148,6 @@ public class EntityMapper {
     public AdresseDTO toDTO(Adresse adresse) {
         if (adresse == null) return null;
         return new AdresseDTO(
-                adresse.getIdAdresse(),
                 adresse.getNomAdresse(),
                 adresse.getAdresse(),
                 adresse.getCodePostal(),
@@ -162,7 +163,6 @@ public class EntityMapper {
     public Adresse toEntity(AdresseDTO dto) {
         if (dto == null) return null;
         Adresse adresse = new Adresse();
-        adresse.setIdAdresse(dto.getId());
         adresse.setNomAdresse(dto.getNomAdresse());
         adresse.setAdresse(dto.getAdresse());
         adresse.setCodePostal(dto.getCodePostal());
@@ -178,13 +178,13 @@ public class EntityMapper {
     // === LIEU ===
     public LieuDTO toDTO(Lieu lieu) {
         if (lieu == null) return null;
-        return new LieuDTO(lieu.getIdLieu(), lieu.getInstructions());
+        return new LieuDTO(
+                lieu.getInstructions());
     }
 
     public Lieu toEntity(LieuDTO dto) {
         if (dto == null) return null;
         Lieu lieu = new Lieu();
-        lieu.setIdLieu(dto.getId());
         lieu.setInstructions(dto.getInstructions());
         return lieu;
     }
@@ -194,7 +194,6 @@ public class EntityMapper {
     public OptionDTO toDTO(Option serviceSup) {
         if (serviceSup == null) return null;
         return new OptionDTO(
-                serviceSup.getIdOption(),
                 serviceSup.getNomOption(),
                 serviceSup.getTarifOption(),
                 serviceSup.getDescriptionOption()
@@ -204,7 +203,6 @@ public class EntityMapper {
     public Option toEntity(OptionDTO dto) {
         if (dto == null) return null;
         Option serviceSup = new Option();
-        serviceSup.setIdOption(dto.getId());
         serviceSup.setNomOption(dto.getNomOption());
         serviceSup.setTarifOption(dto.getTarifOption());
         serviceSup.setDescriptionOption(dto.getDescriptionOption());
@@ -215,7 +213,6 @@ public class EntityMapper {
     public MediaDTO toDTO(Media media) {
         if (media == null) return null;
         return new MediaDTO(
-                media.getIdMedia(),
                 media.getNomMedia(),
                 media.getType(),
                 media.getUrl(),
@@ -228,7 +225,6 @@ public class EntityMapper {
     public Media toEntity(MediaDTO dto) {
         if (dto == null) return null;
         Media media = new Media();
-        media.setIdMedia(dto.getId());
         media.setNomMedia(dto.getNomMedia());
         media.setType(dto.getType());
         media.setUrl(dto.getUrl());
@@ -244,7 +240,6 @@ public class EntityMapper {
     public ReparateurDTO toDTO(Reparateur reparateur) {
         if (reparateur == null) return null;
         return new ReparateurDTO(
-                reparateur.getIdReparateur(),
                 reparateur.getNomReparateur(),
                 reparateur.getEmailReparateur()
         );
@@ -253,7 +248,6 @@ public class EntityMapper {
     public Reparateur toEntity(ReparateurDTO dto) {
         if (dto == null) return null;
         Reparateur reparateur = new Reparateur();
-        reparateur.setIdReparateur(dto.getId());
         reparateur.setNomReparateur(dto.getNomReparateur());
         reparateur.setEmailReparateur(dto.getEmailReparateur());
         return reparateur;

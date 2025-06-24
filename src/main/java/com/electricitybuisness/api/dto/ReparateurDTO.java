@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReparateurDTO {
-    private Long id;
 
     @NotBlank(message = "Le nom de l'utilisateur est obligatoire")
     private String nomReparateur;

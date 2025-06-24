@@ -19,7 +19,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UtilisateurDTO {
-    private Long id;
 
     @NotBlank(message = "Le nom de l'utilisateur est obligatoire")
     private String nomUtilisateur;

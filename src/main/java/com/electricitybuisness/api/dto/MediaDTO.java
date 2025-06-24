@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MediaDTO {
-    private Long id;
 
     @NotBlank(message = "Le nom du média est obligatoire")
     private String nomMedia;

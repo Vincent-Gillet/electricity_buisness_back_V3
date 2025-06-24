@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LieuDTO {
-    private Long id;
 
     @NotBlank(message = "Les instructions sont obligatoires")
     private String instructions;

@@ -24,11 +24,11 @@ public class BorneReparateur {
     private BorneReparateurId id = new BorneReparateurId();
 
     @ManyToOne
-    @JoinColumn(name = "reparateurId", referencedColumnName = "id", insertable= false, updatable = false)
+    @JoinColumn(name = "idReparateur", referencedColumnName = "id_reparateur", insertable= false, updatable = false)
     private Reparateur reparateur;
 
     @ManyToOne
-    @JoinColumn(name = "id_borne", referencedColumnName = "id", insertable= false, updatable = false)
+    @JoinColumn(name = "idBorne", referencedColumnName = "id_borne", insertable= false, updatable = false)
     private Borne borne;
 
     @Column(name = "reference", length = 100, nullable = false)

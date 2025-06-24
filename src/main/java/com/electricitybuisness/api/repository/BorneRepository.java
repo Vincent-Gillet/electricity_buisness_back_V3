@@ -1,6 +1,7 @@
 package com.electricitybuisness.api.repository;
 
 import com.electricitybuisness.api.model.Borne;
+import com.electricitybuisness.api.model.EtatBorne;
 import com.electricitybuisness.api.model.Lieu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,9 +16,9 @@ import java.util.List;
 public interface BorneRepository extends JpaRepository<Borne, Long> {
     List<Borne> findByLieu(Lieu lieu);
 
-    List<Borne> findByEtat(Borne etatBorne);
+    List<Borne> findByEtatBorne(Borne etatBorne);
 
     List<Borne> findByOccupee(Borne occupee);
 
-    List<Borne> findByLieuAndEtat(Lieu lieu, Borne etatBorne);
+    List<Borne> findByLieuAndEtatBorne(Lieu lieu, Borne etatBorne);
 }

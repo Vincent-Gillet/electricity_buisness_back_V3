@@ -20,8 +20,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BorneDTO {
-    private Long id;
-
     @NotBlank(message = "Le nom de la borne est obligatoire")
     private String nomBorne;
 

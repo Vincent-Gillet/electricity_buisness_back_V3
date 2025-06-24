@@ -6,7 +6,7 @@ package com.electricitybuisness.api.model;
  */
 
 public class BorneReparateurId {
-    private Long borneId;
-    private Long reparateurId;
+    private Long idBorne;
+    private Long idReparateur;
 
 }

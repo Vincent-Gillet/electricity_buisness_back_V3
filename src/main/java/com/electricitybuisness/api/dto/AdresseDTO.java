@@ -15,8 +15,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AdresseDTO {
-    private Long id;
-
     @NotBlank(message = "Le nom de l'adresse est obligatoire")
     private String nomAdresse;
 

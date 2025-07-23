@@ -1,7 +1,6 @@
 package com.electricitybuisness.api.controller;
 
-import com.electricitybuisness.api.dto.UtilisateurCreateDTO;
-import com.electricitybuisness.api.dto.UtilisateurDTO;
+import com.electricitybuisness.api.dto.*;
 import com.electricitybuisness.api.mapper.EntityMapper;
 import com.electricitybuisness.api.model.Utilisateur;
 import com.electricitybuisness.api.service.UtilisateurService;
@@ -71,25 +70,75 @@ public class UtilisateurController {
      * Met à jour un utilisateur existant.
      * PUT /api/utilisateurs/{id}
      * @param id L'identifiant de l'utilisateur à mettre à jour
-     * @param utilisateurDTO Les nouvelles informations de l'utilisateur
+     * @param utilisateurUpdateDTO Les nouvelles informations de l'utilisateur
      * @return L'utilisateur mis à jour, ou un statut HTTP 404 Not Found si l'ID n'existe pas
      */
     @PutMapping("/{id}")
-    public ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable Long id, @Valid @RequestBody UtilisateurDTO utilisateurDTO) {
+    public ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable Long id, @Valid @RequestBody UtilisateurUpdateDTO utilisateurUpdateDTO) {
         if (!utilisateurService.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        Utilisateur utilisateur = mapper.toEntity(utilisateurDTO);
-
-        System.out.println("utilisateur : " + utilisateur);
-
+        Utilisateur existing = utilisateurService.getUtilisateurById(id).orElseThrow();
+        Utilisateur utilisateur = mapper.toEntity(utilisateurUpdateDTO, existing);
         Utilisateur updatedUtilisateur = utilisateurService.updateUtilisateur(id, utilisateur);
-
-        System.out.println("updatedUtilisateur : " + updatedUtilisateur);
-
         UtilisateurDTO updatedDTO = mapper.toDTO(updatedUtilisateur);
+        return ResponseEntity.ok(updatedDTO);
+    }
 
-        System.out.println("updatedDTO : " + updatedDTO);
+    /**
+     * Met à jour le mot de passe d'un utilisateur.
+     * PUT /api/utilisateurs/password/{id}
+     * @param id L'identifiant de l'utilisateur dont le mot de passe doit être mis à jour
+     * @param utilisateurUpdatePasswordDTO Les nouvelles informations de mot de passe
+     * @return L'utilisateur mis à jour avec le nouveau mot de passe, ou un statut HTTP 404 Not Found si l'ID n'existe pas
+     */
+    @PutMapping("/password/{id}")
+    public ResponseEntity<UtilisateurDTO> updateUtilisateurPassword(@PathVariable Long id, @Valid @RequestBody UtilisateurUpdatePasswordDTO utilisateurUpdatePasswordDTO) {
+        if (!utilisateurService.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        Utilisateur existing = utilisateurService.getUtilisateurById(id).orElseThrow();
+        Utilisateur utilisateur = mapper.toEntityPassword(utilisateurUpdatePasswordDTO, existing);
+        Utilisateur updatedUtilisateur = utilisateurService.updateUtilisateur(id, utilisateur);
+        UtilisateurDTO updatedDTO = mapper.toDTO(updatedUtilisateur);
+        return ResponseEntity.ok(updatedDTO);
+    }
+
+    /**
+     * Met à jour le statut "banni" d'un utilisateur.
+     * PUT /api/utilisateurs/banni/{id}
+     * @param id L'identifiant de l'utilisateur à mettre à jour
+     * @param utilisateurUpdateBanniDTO Les nouvelles informations de l'utilisateur, y compris le statut banni
+     * @return L'utilisateur mis à jour avec le statut banni, ou un statut HTTP 404 Not Found si l'ID n'existe pas
+     */
+    @PutMapping("/banni/{id}")
+    public ResponseEntity<UtilisateurDTO> updateUtilisateurBanni(@PathVariable Long id, @Valid @RequestBody UtilisateurUpdateBanniDTO utilisateurUpdateBanniDTO) {
+        if (!utilisateurService.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        Utilisateur existing = utilisateurService.getUtilisateurById(id).orElseThrow();
+        Utilisateur utilisateur = mapper.toEntityBanni(utilisateurUpdateBanniDTO, existing);
+        Utilisateur updatedUtilisateur = utilisateurService.updateUtilisateur(id, utilisateur);
+        UtilisateurDTO updatedDTO = mapper.toDTO(updatedUtilisateur);
+        return ResponseEntity.ok(updatedDTO);
+    }
+
+    /**
+     * Met à jour le rôle d'un utilisateur.
+     * PUT /api/utilisateurs/role/{id}
+     * @param id L'identifiant de l'utilisateur dont le rôle doit être mis à jour
+     * @param utilisateurUpdateRoleDTO Les nouvelles informations de rôle de l'utilisateur
+     * @return L'utilisateur mis à jour avec le nouveau rôle, ou un statut HTTP 404 Not Found si l'ID n'existe pas
+     */
+    @PutMapping("/role/{id}")
+    public ResponseEntity<UtilisateurDTO> updateUtilisateurRole(@PathVariable Long id, @Valid @RequestBody UtilisateurUpdateRoleDTO utilisateurUpdateRoleDTO) {
+        if (!utilisateurService.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        Utilisateur existing = utilisateurService.getUtilisateurById(id).orElseThrow();
+        Utilisateur utilisateur = mapper.toEntityRole(utilisateurUpdateRoleDTO, existing);
+        Utilisateur updatedUtilisateur = utilisateurService.updateUtilisateur(id, utilisateur);
+        UtilisateurDTO updatedDTO = mapper.toDTO(updatedUtilisateur);
         return ResponseEntity.ok(updatedDTO);
     }
 

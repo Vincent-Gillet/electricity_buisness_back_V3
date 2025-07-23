@@ -82,6 +82,51 @@ public class EntityMapper {
         return utilisateur;
     }
 
+    // === Mettre a jour UTILISATEUR ===
+
+    public Utilisateur toEntity(UtilisateurUpdateDTO dto, Utilisateur existing) {
+        existing.setNomUtilisateur(dto.getNomUtilisateur());
+        existing.setPrenom(dto.getPrenom());
+        existing.setPseudo(dto.getPseudo());
+        existing.setEmailUtilisateur(dto.getEmailUtilisateur());
+        existing.setDateDeNaissance(dto.getDateDeNaissance());
+        existing.setIban(dto.getIban());
+        return existing;
+    }
+
+    public UtilisateurUpdateDTO toUpdateDTO(Utilisateur utilisateur) {
+        if (utilisateur == null) return null;
+        return new UtilisateurUpdateDTO(
+                utilisateur.getNomUtilisateur(),
+                utilisateur.getPrenom(),
+                utilisateur.getPseudo(),
+                utilisateur.getEmailUtilisateur(),
+                utilisateur.getDateDeNaissance(),
+                utilisateur.getIban()
+        );
+    }
+
+    // === Mettre a jour le mot de passe UTILISATEUR ===
+
+    public Utilisateur toEntityPassword(UtilisateurUpdatePasswordDTO dto, Utilisateur existing) {
+        existing.setMotDePasseUtilisateur(passwordEncoder.encode(dto.getMotDePasseUtilisateur()));
+        return existing;
+    }
+
+    // === Mettre a jour le statut BANNI UTILISATEUR ===
+
+    public Utilisateur toEntityBanni(UtilisateurUpdateBanniDTO dto, Utilisateur existing) {
+        existing.setBanni(dto.getBanni());
+        return existing;
+    }
+
+    // === Mettre a jour le role UTILISATEUR ===
+
+    public Utilisateur toEntityRole(UtilisateurUpdateRoleDTO dto, Utilisateur existing) {
+        existing.setRole(dto.getRole());
+        return existing;
+    }
+
     // === BORNE ===
     public BorneDTO toDTO(Borne borne) {
         if (borne == null) return null;

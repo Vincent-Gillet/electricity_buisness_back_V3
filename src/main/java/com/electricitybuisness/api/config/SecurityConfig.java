@@ -50,14 +50,14 @@ public class SecurityConfig {
                                 "/api/lieux/**",
                                 "/api/reservations/**",
                                 "/api/vehicules/**",
-                                "/api/medias/**",
-                                "/api/bornes/**"
+                                "/api/medias/**"
                         ).authenticated()
 
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/api/auth/login",
-                                "/api/utilisateurs/**"
+                                "/api/utilisateurs/**",
+                                "/api/bornes/**"
                         ).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -75,11 +75,8 @@ public class SecurityConfig {
     @Bean
     AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-
         authProvider.setUserDetailsService(userDetailsService);
-
         authProvider.setPasswordEncoder(passwordEncoder());
-
         return authProvider;
     }
 

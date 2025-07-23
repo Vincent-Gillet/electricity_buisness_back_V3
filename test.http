@@ -6,7 +6,7 @@ POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
 {
-  "emailUtilisateur": "johndeo@gmail.com",
+  "emailUtilisateur": "martin@gmail.com",
   "motDePasseUtilisateur": "azerty"
 }
 
@@ -23,9 +23,9 @@ Content-Type: application/json
 {
   "utilisateurNom": "Martin",
   "prenom": "Jean",
-  "pseudo": "jeanmartin",
+  "pseudo": "johndeo",
   "utilisateurMotDePasse": "azerty",
-  "utilisateurEmail": "jeanmartin@gmail.com",
+  "utilisateurEmail": "martin@gmail.com",
   "dateDeNaissance": "2008-03-06"
 }
 
@@ -48,7 +48,7 @@ DELETE http://127.0.0.1:8080/api/utilisateurs/1
 ### Récupérer la liste des bornes
 
 GET http://localhost:8080/api/bornes
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huZGVvQGdtYWlsLmNvbSIsImlhdCI6MTc1MDc5MzUxNywiZXhwIjoxNzUwNzkzNTc3fQ.A4fckGWDXzQfrDnDnCrlho9RrwGf17n9P5U87_so-f0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJ0aW5AZ21haWwuY29tIiwiaWF0IjoxNzUzMjYwOTQ2LCJleHAiOjE3NTMyNjEwMDZ9.MCMbkQq4sHU3cIRficUeYqrm9lVgRUAWF27NwU566Vs
 
 
 

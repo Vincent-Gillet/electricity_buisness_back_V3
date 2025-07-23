@@ -15,10 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Entité représentant un utilisateur du système.
@@ -90,16 +87,30 @@ public class Utilisateur implements UserDetails {
     @NotNull(message = "Le statut de bannissement est obligatoire")
     private Boolean banni = false;
 
-    @OneToOne(cascade = CascadeType.ALL)
+/*    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_media")
     private Media media;
 
-/*    @ManyToMany
-    private Set<Borne> bornes = new HashSet<>();*/
+*//*    @ManyToMany
+    private Set<Borne> bornes = new HashSet<>();*//*
 
     @OneToMany
     private Set<Borne> bornes = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Vehicule> vehicule = new HashSet<>();
+    private Set<Vehicule> vehicule = new HashSet<>();*/
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_media")
+    private Media media;
+
+    @OneToMany(mappedBy = "utilisateur", fetch = FetchType.EAGER)
+    private List<Borne> bornes = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Vehicule> vehicule = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<RefreshToken> refreshTokens = new ArrayList<>();
 }

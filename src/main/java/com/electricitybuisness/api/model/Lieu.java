@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -42,7 +44,7 @@ public class Lieu {
 
 
     @OneToMany(mappedBy = "lieu")
-    private Set<Borne> bornes = new HashSet<>();
+    private List<Borne> bornes = new ArrayList<>();
 
 
 

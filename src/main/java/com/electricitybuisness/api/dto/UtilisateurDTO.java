@@ -1,6 +1,12 @@
 package com.electricitybuisness.api.dto;
 
+import com.electricitybuisness.api.model.Borne;
+import com.electricitybuisness.api.model.RefreshToken;
 import com.electricitybuisness.api.model.RoleUtilisateur;
+import com.electricitybuisness.api.model.Vehicule;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -10,6 +16,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Past;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DTO pour l'entité Utilisateur
@@ -30,7 +38,7 @@ public class UtilisateurDTO {
     private String pseudo;
 
     @NotBlank(message = "L'adresse email est obligatoire")
-    @Email(message = "L'adresse email doit être valide")
+    @Email(message = "L'adresse email doit être valide DTO")
     private String emailUtilisateur;
 
     @NotNull(message = "Le rôle est obligatoire")
@@ -41,6 +49,8 @@ public class UtilisateurDTO {
 
     private String iban;
 
-    @NotNull(message = "Le statut de bannissement est obligatoire")
-    private Boolean banni;
+    private List<Borne> bornes;
+
+    private List<Vehicule> vehicule;
+
 }

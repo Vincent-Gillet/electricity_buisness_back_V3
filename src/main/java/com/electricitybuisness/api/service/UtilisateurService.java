@@ -1,5 +1,7 @@
 package com.electricitybuisness.api.service;
 
+import com.electricitybuisness.api.dto.UtilisateurUpdatePasswordDTO;
+import com.electricitybuisness.api.mapper.EntityMapper;
 import com.electricitybuisness.api.model.Utilisateur;
 import com.electricitybuisness.api.repository.UtilisateurRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,8 @@ import java.util.Optional;
 @Transactional
 public class UtilisateurService {
     private final UtilisateurRepository utilisateurRepository;
+
+    private final EntityMapper entityMapper;
 
     /**
      * Récupère tous les utilisateurs.
@@ -114,5 +118,11 @@ public class UtilisateurService {
     public boolean existsByAdresseMail(String adresseMail) {
         return utilisateurRepository.existsByEmailUtilisateur(adresseMail);
     }
+
+/*    public Utilisateur updatePassword(Long id, UtilisateurUpdatePasswordDTO dto) {
+        Utilisateur existing = utilisateurRepository.findById(id).orElseThrow();
+        entityMapper.toEntity(dto, existing);
+        return utilisateurRepository.save(existing);
+    }*/
 
 }

@@ -9,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Mapper pour convertir entre entités JPA et DTOs
  * Évite les références circulaires en contrôlant la sérialisation
@@ -26,6 +28,18 @@ public class EntityMapper {
     // === UTILISATEUR ===
     public UtilisateurDTO toDTO(Utilisateur utilisateur) {
         if (utilisateur == null) return null;
+        List<BorneDTO> borneDTOs = null;
+        if (utilisateur.getBornes() != null) {
+            borneDTOs = utilisateur.getBornes().stream()
+                    .map(this::toEntity)
+                    .toList();
+        }
+        List<VehiculeDTO> vehiculeDTOs = null;
+        if (utilisateur.getVehicule() != null) {
+            vehiculeDTOs = utilisateur.getVehicule().stream()
+                    .map(this::toEntity)
+                    .toList();
+        }
         return new UtilisateurDTO(
                 utilisateur.getNomUtilisateur(),
                 utilisateur.getPrenom(),
@@ -34,7 +48,8 @@ public class EntityMapper {
                 utilisateur.getRole(),
                 utilisateur.getDateDeNaissance(),
                 utilisateur.getIban(),
-                utilisateur.getBanni()
+                borneDTOs,
+                vehiculeDTOs
         );
     }
 
@@ -48,38 +63,80 @@ public class EntityMapper {
         utilisateur.setEmailUtilisateur(dto.getEmailUtilisateur());
         utilisateur.setDateDeNaissance(dto.getDateDeNaissance());
         utilisateur.setIban(dto.getIban());
-        utilisateur.setBanni(dto.getBanni());
+        if (dto.getBornes() != null) {
+            List<Borne> bornes = dto.getBornes().stream()
+                    .map(this::toEntity)
+                    .toList();
+            utilisateur.setBornes(bornes);
+        }
+        if (dto.getVehicule() != null) {
+            List<Vehicule> vehicules = dto.getVehicule().stream()
+                    .map(this::toEntity)
+                    .toList();
+            utilisateur.setVehicule(vehicules);
         return utilisateur;
     }
 
-    // === UTILISATEUR CREATE ===
-
-    public UtilisateurCreateDTO toCreateDTO(Utilisateur utilisateur) {
-        if (utilisateur == null) return null;
-        return new UtilisateurCreateDTO(
-                utilisateur.getNomUtilisateur(),
-                utilisateur.getPrenom(),
-                utilisateur.getPseudo(),
-                utilisateur.getMotDePasseUtilisateur(),
-                utilisateur.getEmailUtilisateur(),
-                utilisateur.getDateDeNaissance()
-        );
-    }
+    // === Créée UTILISATEUR ===
 
     public Utilisateur toEntity(UtilisateurCreateDTO dto) {
         if (dto == null) return null;
         Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setNomUtilisateur(dto.getUtilisateurNom());
+        utilisateur.setNomUtilisateur(dto.getNomUtilisateur());
         utilisateur.setPrenom(dto.getPrenom());
         utilisateur.setPseudo(dto.getPseudo());
         utilisateur.setRole(RoleUtilisateur.UTILISATEUR);
-        utilisateur.setMotDePasseUtilisateur(passwordEncoder.encode(dto.getUtilisateurMotDePasse()));
-        utilisateur.setEmailUtilisateur(dto.getUtilisateurEmail());
+        utilisateur.setMotDePasseUtilisateur(passwordEncoder.encode(dto.getMotDePasseUtilisateur()));
+        utilisateur.setEmailUtilisateur(dto.getEmailUtilisateur());
         utilisateur.setDateDeNaissance(dto.getDateDeNaissance());
         utilisateur.setIban(null);
         utilisateur.setBanni(false);
-
         return utilisateur;
+    }
+
+    // === Mettre a jour UTILISATEUR ===
+
+    public Utilisateur toEntity(UtilisateurUpdateDTO dto, Utilisateur existing) {
+        existing.setNomUtilisateur(dto.getNomUtilisateur());
+        existing.setPrenom(dto.getPrenom());
+        existing.setPseudo(dto.getPseudo());
+        existing.setEmailUtilisateur(dto.getEmailUtilisateur());
+        existing.setDateDeNaissance(dto.getDateDeNaissance());
+        existing.setIban(dto.getIban());
+        return existing;
+    }
+
+    public UtilisateurUpdateDTO toUpdateDTO(Utilisateur utilisateur) {
+        if (utilisateur == null) return null;
+        return new UtilisateurUpdateDTO(
+                utilisateur.getNomUtilisateur(),
+                utilisateur.getPrenom(),
+                utilisateur.getPseudo(),
+                utilisateur.getEmailUtilisateur(),
+                utilisateur.getDateDeNaissance(),
+                utilisateur.getIban()
+        );
+    }
+
+    // === Mettre a jour le mot de passe UTILISATEUR ===
+
+    public Utilisateur toEntityPassword(UtilisateurUpdatePasswordDTO dto, Utilisateur existing) {
+        existing.setMotDePasseUtilisateur(passwordEncoder.encode(dto.getMotDePasseUtilisateur()));
+        return existing;
+    }
+
+    // === Mettre a jour le statut BANNI UTILISATEUR ===
+
+    public Utilisateur toEntityBanni(UtilisateurUpdateBanniDTO dto, Utilisateur existing) {
+        existing.setBanni(dto.getBanni());
+        return existing;
+    }
+
+    // === Mettre a jour le role UTILISATEUR ===
+
+    public Utilisateur toEntityRole(UtilisateurUpdateRoleDTO dto, Utilisateur existing) {
+        existing.setRole(dto.getRole());
+        return existing;
     }
 
     // === BORNE ===
@@ -175,14 +232,28 @@ public class EntityMapper {
     // === LIEU ===
     public LieuDTO toDTO(Lieu lieu) {
         if (lieu == null) return null;
+        List<BorneDTO> borneDTOs = null;
+        if (lieu.getBornes() != null) {
+            borneDTOs = lieu.getBornes().stream()
+                    .map(this::toDTO)
+                    .toList();
+        }
         return new LieuDTO(
-                lieu.getInstructions());
+                lieu.getInstructions(),
+                borneDTOs
+        );
     }
 
     public Lieu toEntity(LieuDTO dto) {
         if (dto == null) return null;
         Lieu lieu = new Lieu();
         lieu.setInstructions(dto.getInstructions());
+        if (dto.getBornes() != null) {
+            List<Borne> bornes = dto.getBornes().stream()
+                    .map(this::toEntity)
+                    .toList();
+            lieu.setBornes(bornes);
+        }
         return lieu;
     }
 

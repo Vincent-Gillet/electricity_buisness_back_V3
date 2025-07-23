@@ -12,34 +12,65 @@ Content-Type: application/json
 
 ### Récupérer la liste des utilisateurs
 GET http://localhost:8080/api/utilisateurs
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huZGVvQGdtYWlsLmNvbSIsImlhdCI6MTc1MDk0OTcxNiwiZXhwIjoxNzUwOTQ5Nzc2fQ.nCtfep84nUwqhTn168O8pmO95UQNpYRwSrl2QHHUM9Y
+
 
 ### Récupérer un utilisateur par son ID
 GET http://localhost:8080/api/utilisateurs/1
 
 ### Créer un nouvel utilisateur avec valeur par défaut
-POST http://localhost:8080/api/utilisateurs
+POST http://localhost:8080/api/utilisateurs/register
 Content-Type: application/json
 
 {
-  "utilisateurNom": "Martin",
-  "prenom": "Jean",
-  "pseudo": "jeanmartin",
-  "utilisateurMotDePasse": "azerty",
-  "utilisateurEmail": "jeanmartin@gmail.com",
+  "nomUtilisateur": "Roger",
+  "prenom": "Roger",
+  "pseudo": "Martine",
+  "emailUtilisateur": "martine@gmail.com",
+  "motDePasseUtilisateur": "azerty",
   "dateDeNaissance": "2008-03-06"
 }
 
+### pour le post, le pseudo et l'email doit être unique
+
 ### Mettre à jour un utilisateur par son ID
-PUT http://localhost:8080/api/utilisateurs/1
+PUT http://localhost:8080/api/utilisateurs/3
 Content-Type: application/json
 
 {
-  "utilisateurNom": "Doe",
+  "nomUtilisateur": "Doe",
   "prenom": "John",
   "pseudo": "johndeo_updated",
-  "utilisateurEmail": "johndeo@gmail.com",
-  "utilisateurMotDePasse": "new_password",
-  "dateDeNaissance": "2002-01-01"
+  "emailUtilisateur": "johndeo@gmail.com",
+  "dateDeNaissance": "2002-01-01",
+  "iban": "FR7630001007941234567890185"
+}
+
+### Mettre à jour le mot de passe un utilisateur par son ID
+PUT http://localhost:8080/api/utilisateurs/password/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huZGVvQGdtYWlsLmNvbSIsImlhdCI6MTc1MDk0OTgzMiwiZXhwIjoxNzUwOTQ5ODkyfQ.oWJGC-uA1hvtK5sBRKvn3QcTpGU4RzSxwr6PB_oQ9eY
+Content-Type: application/json
+
+{
+  "motDePasseUtilisateur": "ytreza"
+}
+
+### Mettre à jour bannissement un utilisateur par son ID par un administrateur
+PUT http://localhost:8080/api/utilisateurs/banni/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huZGVvQGdtYWlsLmNvbSIsImlhdCI6MTc1MTI3MTU2OSwiZXhwIjoxNzUxMjcxNjI5fQ.eyjm6lUbOS1AXGld2s4XBYhHs7zUahJXtzYLSu0FNFo
+Content-Type: application/json
+
+{
+  "banni": true
+}
+
+### Mettre à jour bannissement un utilisateur par son ID par un administrateur
+PUT http://localhost:8080/api/utilisateurs/role/6
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huZGVvQGdtYWlsLmNvbSIsImlhdCI6MTc1MDk1Mzc1MywiZXhwIjoxNzUwOTUzODEzfQ.qQ8W5uCN8fAaLLYJp4quXqznPkQyOt0ERv78LDpXND0
+Content-Type: application/json
+
+{
+  "role": 1
 }
 
 ### Supprimer un utilisateur par son ID
@@ -48,9 +79,13 @@ DELETE http://127.0.0.1:8080/api/utilisateurs/1
 ### Récupérer la liste des bornes
 
 GET http://localhost:8080/api/bornes
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huZGVvQGdtYWlsLmNvbSIsImlhdCI6MTc1MDc5MzUxNywiZXhwIjoxNzUwNzkzNTc3fQ.A4fckGWDXzQfrDnDnCrlho9RrwGf17n9P5U87_so-f0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huZGVvQGdtYWlsLmNvbSIsImlhdCI6MTc1MTI3Mjc2MSwiZXhwIjoxNzUxMjcyODIxfQ.g_VCByOg09ncGsCzyZXOVCiAEXAcD5SfwrkZlhSF8pc
 
 
+### Récupérer les adresses avec l'api du gouvernement
+
+GET http://localhost:8080/api/adresses/search/?q=8+bd+du+port
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huZGVvQGdtYWlsLmNvbSIsImlhdCI6MTc1MTI3Mjc2MSwiZXhwIjoxNzUxMjcyODIxfQ.g_VCByOg09ncGsCzyZXOVCiAEXAcD5SfwrkZlhSF8pc
 
 
 

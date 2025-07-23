@@ -3,6 +3,7 @@ package com.electricitybuisness.api.controller;
 import com.electricitybuisness.api.dto.AdresseDTO;
 import com.electricitybuisness.api.mapper.EntityMapper;
 import com.electricitybuisness.api.model.Adresse;
+import com.electricitybuisness.api.service.AdresseExternalService;
 import com.electricitybuisness.api.service.AdresseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class AdresseController {
 
     private final AdresseService adresseService;
     private final EntityMapper mapper;
+    private final AdresseExternalService adresseExternalService;
 
     /**
      * Récupère toutes les adresses.
@@ -99,5 +101,23 @@ public class AdresseController {
         return ResponseEntity.noContent().build();
     }
 
+
+/*    @GetMapping("/search")
+    public ResponseEntity<List<AdresseDTO>> searchAdresses(@RequestParam String q, @RequestParam(defaultValue = "15") int limit) {
+        List<Adresse> adresses = adresseExternalService.searchAdresses(q, limit);
+        List<AdresseDTO> adressesDTO = adresses.stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(adressesDTO);
+    }*/
+
+    @GetMapping("/search")
+    public ResponseEntity<String> searchAdresses(@RequestParam String q, @RequestParam(defaultValue = "15") int limit) {
+        String adresses = adresseExternalService.searchAdresses(q, limit);
+        if (adresses == null || adresses.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aucune adresse trouvée pour la requête : " + q);
+        }
+        return ResponseEntity.ok(adresses);
+    }
 
 }

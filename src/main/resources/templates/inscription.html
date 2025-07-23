@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="fr" th:replace="~{fragments/layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Inscription</title>
+    <link th:href="@{/css/login.css}" rel="stylesheet" />
+</head>
+<body>
+
+    <h1>Inscription</h1>
+    <section class="form-login-subcription">
+        <div class="container table-blue">
+            <form class="row g-3 needs-validation" th:action="@{/inscription}" method="post" th:object="${utilisateur}" novalidate>
+                <div class="col-md-6">
+                    <label for="prenom" class="form-label">Prénom *</label>
+                    <input type="text" th:field="*{prenom}" class="form-control" id="prenom" value="" placeholder="Prénom" required>
+<!--                    <div class="valid-feedback">
+                        Looks good!
+                    </div>-->
+                </div>
+                <div class="col-md-6">
+                    <label for="nomUtilisateur" class="form-label">Nom *</label>
+                    <input type="text" th:field="*{nomUtilisateur}" class="form-control" id="nomUtilisateur" value="" placeholder="Nom" required>
+<!--                    <div class="valid-feedback">
+                        Looks good!
+                    </div>-->
+                </div>
+                <div class="col-md-6">
+                    <label for="pseudo" class="form-label">Nom *</label>
+                    <input type="text" th:field="*{pseudo}" class="form-control" id="pseudo" value="" placeholder="Pseudo" required>
+                    <!--                    <div class="valid-feedback">
+                                            Looks good!
+                                        </div>-->
+                </div>
+                <div class="col-md-6">
+                    <label for="dateDeNaissance" class="form-label">Date de naissance *</label>
+                    <input type="date" class="form-control" id="dateDeNaissance" required>
+<!--                    <div class="valid-feedback">
+                        Looks good!
+                    </div>-->
+                </div>
+<!--                <div class="col-md-6">
+                    <label for="validationCustom04" class="form-label">Téléphone *</label>
+                    <input type="tel" class="form-control" id="validationCustom04" value="" placeholder="01 23 45 67 89" required>
+&lt;!&ndash;                    <div class="valid-feedback">
+                        Looks good!
+                    </div>&ndash;&gt;
+                </div>-->
+                <div class="col-md-6">
+                    <label for="emailUtilisateur" class="form-label">Email *</label>
+                    <input type="email" th:field="*{emailUtilisateur}" class="form-control" id="emailUtilisateur" placeholder="adresse@gmail.com" required>
+<!--                    <div class="invalid-feedback">
+                        Veuillez entrer un email valide.
+                    </div>-->
+                </div>
+
+<!--                <div class="col-md-6">
+                    <label for="validationCustom06" class="form-label">Adresse *</label>
+                    <input type="text" class="form-control" id="validationCustom06" placeholder="10 Rue Philippe Marcombes" required>
+&lt;!&ndash;                    <div class="invalid-feedback">
+                        Veuillez entrer une adresse valide.
+                    </div>&ndash;&gt;
+                </div>
+                <div class="col-md-6">
+                    <label for="validationCustom07" class="form-label">Code postal *</label>
+                    <input type="number" class="form-control" id="validationCustom07" placeholder="63100" required>
+&lt;!&ndash;                    <div class="invalid-feedback">
+                        Veuillez entrer un code postal valide.
+                    </div>&ndash;&gt;
+                </div>
+                <div class="col-md-6">
+                    <label for="validationCustom08" class="form-label">Ville *</label>
+                    <input type="text" class="form-control" id="validationCustom08" placeholder="Clermont-Ferrand" required>
+&lt;!&ndash;                    <div class="invalid-feedback">
+                        Veuillez entrer une ville valide.
+                    </div>&ndash;&gt;
+                </div>-->
+
+                <div class="col-md-6">
+                    <label for="validationCustom09" class="form-label">Mot de passe *</label>
+                    <input type="password" th:field="*{motDePasseUtilisateur}" class="form-control" id="validationCustom09" placeholder="mot de passe" required>
+<!--                    <div class="invalid-feedback">
+                        Veuillez entrer un mot de passe valide.
+                    </div>-->
+                </div>
+<!--                <div class="col-md-6">
+                    <label for="validationCustom10" class="form-label">Confirmation de Mot de passe *</label>
+                    <input type="password" class="form-control" id="validationCustom10" placeholder="mot de passe" required>
+&lt;!&ndash;                    <div class="invalid-feedback">
+                        Veuillez entrer un mot de passe valide.
+                    </div>&ndash;&gt;
+                </div>-->
+                <div class="col-12 div-center">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                        <label class="form-check-label" for="invalidCheck">
+                            Accepté les conditions d’utilisations *
+                        </label>
+                        <div class="invalid-feedback">
+                            Vous devez accepté les conditions d'utilisations.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 div-center">
+                    <button class="btn button-style" type="submit">S'incrire</button>
+                </div>
+                <div class="col-12 div-center">
+                    <div class="">Vous avez déjà un compte ?</div>
+                </div>
+                <div class="col-12 div-center">
+                    <a class="" th:href="@{/connexion}">Se connecter</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+</body>
+</html>

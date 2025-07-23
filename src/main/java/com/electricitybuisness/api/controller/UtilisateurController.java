@@ -1,12 +1,13 @@
 package com.electricitybuisness.api.controller;
 
-import com.electricitybuisness.api.dto.UtilisateurCreateDTO;
-import com.electricitybuisness.api.dto.UtilisateurDTO;
+import com.electricitybuisness.api.dto.*;
 import com.electricitybuisness.api.mapper.EntityMapper;
 import com.electricitybuisness.api.model.Utilisateur;
 import com.electricitybuisness.api.service.UtilisateurService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,9 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/utilisateurs")
 @RequiredArgsConstructor
 public class UtilisateurController {
+
+    private static final Logger log = LoggerFactory.getLogger(UtilisateurController.class);
+
 
     private final UtilisateurService utilisateurService;
     private final EntityMapper mapper;
@@ -59,7 +63,7 @@ public class UtilisateurController {
      * @param utilisateurDTO L'utilisateur à créer
      * @return L'utilisateur créé avec un statut HTTP 201 Created
      */
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<UtilisateurDTO> saveUtilisateur(@Valid @RequestBody UtilisateurCreateDTO utilisateurDTO) {
         Utilisateur utilisateur = mapper.toEntity(utilisateurDTO);
         Utilisateur savedUtilisateur = utilisateurService.saveUtilisateur(utilisateur);
@@ -71,27 +75,84 @@ public class UtilisateurController {
      * Met à jour un utilisateur existant.
      * PUT /api/utilisateurs/{id}
      * @param id L'identifiant de l'utilisateur à mettre à jour
-     * @param utilisateurDTO Les nouvelles informations de l'utilisateur
+     * @param utilisateurUpdateDTO Les nouvelles informations de l'utilisateur
      * @return L'utilisateur mis à jour, ou un statut HTTP 404 Not Found si l'ID n'existe pas
      */
     @PutMapping("/{id}")
-    public ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable Long id, @Valid @RequestBody UtilisateurDTO utilisateurDTO) {
+    public ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable Long id, @Valid @RequestBody UtilisateurUpdateDTO utilisateurUpdateDTO) {
         if (!utilisateurService.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        Utilisateur utilisateur = mapper.toEntity(utilisateurDTO);
-
-        System.out.println("utilisateur : " + utilisateur);
-
+        Utilisateur existing = utilisateurService.getUtilisateurById(id).orElseThrow();
+        Utilisateur utilisateur = mapper.toEntity(utilisateurUpdateDTO, existing);
         Utilisateur updatedUtilisateur = utilisateurService.updateUtilisateur(id, utilisateur);
-
-        System.out.println("updatedUtilisateur : " + updatedUtilisateur);
-
         UtilisateurDTO updatedDTO = mapper.toDTO(updatedUtilisateur);
-
-        System.out.println("updatedDTO : " + updatedDTO);
         return ResponseEntity.ok(updatedDTO);
     }
+
+    /**
+     * Met à jour le mot de passe d'un utilisateur.
+     * PUT /api/utilisateurs/password/{id}
+     * @param id L'identifiant de l'utilisateur dont le mot de passe doit être mis à jour
+     * @param utilisateurUpdatePasswordDTO Les nouvelles informations de mot de passe
+     * @return L'utilisateur mis à jour avec le nouveau mot de passe, ou un statut HTTP 404 Not Found si l'ID n'existe pas
+     */
+/*    @PutMapping("/password/{id}")
+    public ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable Long id, @Valid @RequestBody UtilisateurUpdatePasswordDTO utilisateurUpdatePasswordDTO) {
+       if (!utilisateurService.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+       *//*
+        Utilisateur existing = utilisateurService.getUtilisateurById(id).orElseThrow();
+        Utilisateur utilisateur = mapper.toEntity(utilisateurUpdatePasswordDTO, existing);
+        Utilisateur updatedUtilisateur = utilisateurService.updateUtilisateur(id, utilisateur);
+        UtilisateurDTO updatedDTO = mapper.toDTO(updatedUtilisateur);
+        return ResponseEntity.ok(updatedDTO);*//*
+        Utilisateur updated = utilisateurService.updatePassword(id, utilisateurUpdatePasswordDTO);
+        System.out.println("Updated user: " + updated);
+        UtilisateurDTO updatedDTO = mapper.toDTO(updated);
+        return ResponseEntity.ok(updatedDTO);
+    }*/
+
+
+    @PutMapping("/password/{id}")
+    public ResponseEntity<UtilisateurDTO> updateUtilisateurPassword(@PathVariable Long id, @Valid @RequestBody UtilisateurUpdatePasswordDTO utilisateurUpdatePasswordDTO) {
+        if (!utilisateurService.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        Utilisateur existing = utilisateurService.getUtilisateurById(id).orElseThrow();
+        Utilisateur utilisateur = mapper.toEntityPassword(utilisateurUpdatePasswordDTO, existing);
+        Utilisateur updatedUtilisateur = utilisateurService.updateUtilisateur(id, utilisateur);
+        UtilisateurDTO updatedDTO = mapper.toDTO(updatedUtilisateur);
+        return ResponseEntity.ok(updatedDTO);
+
+    }
+
+
+    @PutMapping("/banni/{id}")
+    public ResponseEntity<UtilisateurDTO> updateUtilisateurBanni(@PathVariable Long id, @Valid @RequestBody UtilisateurUpdateBanniDTO utilisateurUpdateBanniDTO) {
+        if (!utilisateurService.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        Utilisateur existing = utilisateurService.getUtilisateurById(id).orElseThrow();
+        Utilisateur utilisateur = mapper.toEntityBanni(utilisateurUpdateBanniDTO, existing);
+        Utilisateur updatedUtilisateur = utilisateurService.updateUtilisateur(id, utilisateur);
+        UtilisateurDTO updatedDTO = mapper.toDTO(updatedUtilisateur);
+        return ResponseEntity.ok(updatedDTO);
+    }
+
+    @PutMapping("/role/{id}")
+    public ResponseEntity<UtilisateurDTO> updateUtilisateurRole(@PathVariable Long id, @Valid @RequestBody UtilisateurUpdateRoleDTO utilisateurUpdateRoleDTO) {
+        if (!utilisateurService.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        Utilisateur existing = utilisateurService.getUtilisateurById(id).orElseThrow();
+        Utilisateur utilisateur = mapper.toEntityRole(utilisateurUpdateRoleDTO, existing);
+        Utilisateur updatedUtilisateur = utilisateurService.updateUtilisateur(id, utilisateur);
+        UtilisateurDTO updatedDTO = mapper.toDTO(updatedUtilisateur);
+        return ResponseEntity.ok(updatedDTO);
+    }
+
 
     /**
      * Supprime un utilisateur par son ID.

@@ -15,17 +15,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Entité représentant un utilisateur du système.
  * Un utilisateur peut effectuer des réservations et appartient à un lieu.
  */
 @Entity
-@Table(name = "utilisateur")
+@Table(name = "utilisateurs")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -49,7 +46,7 @@ public class Utilisateur implements UserDetails {
     private String pseudo;
 
     @Column(unique = true)
-    @Email(message = "L'adresse email doit être valide")
+    @Email(message = "L'adresse email doit être valide Model")
     @NotBlank(message = "L'adresse email est obligatoire")
     private String emailUtilisateur;
 
@@ -94,12 +91,12 @@ public class Utilisateur implements UserDetails {
     @JoinColumn(name = "id_media")
     private Media media;
 
-/*    @ManyToMany
-    private Set<Borne> bornes = new HashSet<>();*/
+    @OneToMany(mappedBy = "utilisateur", fetch = FetchType.EAGER)
+    private List<Borne> bornes = new ArrayList<>();
 
-    @OneToMany
-    private Set<Borne> bornes = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Vehicule> vehicule = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<Vehicule> vehicule = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<RefreshToken> refreshTokens = new ArrayList<>();
 }

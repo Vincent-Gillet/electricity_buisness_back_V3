@@ -39,7 +39,6 @@ public class VehiculeService {
         return vehiculeRepository.findById(id);
     }
 
-
     /**
      * Crée un nouveau vehicule.
      * @param vehicule Le vehicule à enregistrer

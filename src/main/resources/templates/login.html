@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr" th:replace="~{fragments/layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Connexion</title>
+</head>
+<body>
+
+    <h1>Connexion</h1>
+    <section class="form-login-subcription">
+        <div class="container">
+            <div class="table-blue">
+                <form id="loginForm" class="row g-3 needs-validation" novalidate th:action="@{/api/auth/login}" method="post">
+                    <div class="col-md-12">
+                        <label for="emailUtilisateur" class="form-label">Email *</label>
+                        <input name="emailUtilisateur" type="email" class="form-control" id="emailUtilisateur" placeholder="adresse@gmail.com" required>
+                        <div class="invalid-feedback">
+                            Veuillez entrer un email valide.
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="motDePasseUtilisateur" class="form-label">Mot de passe *</label>
+                        <input name="motDePasseUtilisateur" type="password" class="form-control" id="motDePasseUtilisateur" placeholder="mot de passe" required>
+                        <div class="invalid-feedback">
+                            Veuillez entrer un mot de passe valide.
+                        </div>
+                    </div>
+                    <div class="col-12 div-center">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                            <label class="form-check-label" for="invalidCheck">
+                                Accepté les conditions d’utilisations *
+                            </label>
+                            <div class="invalid-feedback">
+                                Vous devez accepté les conditions d'utilisations.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 div-center">
+                        <button class="btn button-style" type="submit">Se connecter</button>
+                    </div>
+                    <div class="col-12 div-center">
+                        <div class="">Vous n’avez pas de compte ?</div>
+                    </div>
+                    <div class="col-12 div-center">
+                        <a class="" th:href="@{/inscription}">S'incrire</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+
+</body>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const email = document.getElementById('emailUtilisateur').value;
+        const password = document.getElementById('motDePasseUtilisateur').value;
+
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    emailUtilisateur: email,
+                    motDePasseUtilisateur: password
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Erreur connexion');
+            }
+
+            const data = await response.json();
+            console.log('Tokens:', data);
+            // Ici tu peux faire une redirection ou afficher un message
+        } catch (err) {
+            alert(err.message);
+        }
+    });
+
+</script>
+</html>

@@ -38,28 +38,30 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers(
-                                "/api/admin/**",
-                                "/api/reparateurs/**"
-                        ).hasAnyAuthority("ADMINISTRATEUR")
+                                "/api/auth/**",
+                                "/api/auth/login",
+                                "/api/utilisateurs/**",
+                                "/api/bornes/**",
+                                "/api/reservations/**"
+                                ).permitAll()
+                        .requestMatchers(
+                                "/api/options/**",
+                                "/api/lieux/**",
+                                "/api/vehicules/**",
+                                "/api/medias/**"
+                        ).authenticated()
                         .requestMatchers(
                                 "/api/user/**",
                                 "/api/adresses/**"
                         ).hasAnyAuthority("UTILISATEUR")
                         .requestMatchers(
-                                "/api/options/**",
-                                "/api/lieux/**",
-                                "/api/reservations/**",
-                                "/api/vehicules/**",
-                                "/api/medias/**"
-                        ).authenticated()
+                                "/api/admin/**",
+                                "/api/reparateurs/**"
+                        ).hasAnyAuthority("ADMINISTRATEUR")
 
-                        .requestMatchers(
-                                "/api/auth/**",
-                                "/api/auth/login",
-                                "/api/utilisateurs/**",
-                                "/api/bornes/**"
-                        ).permitAll()
-                        .anyRequest().authenticated())
+
+                        .anyRequest().authenticated()
+                )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

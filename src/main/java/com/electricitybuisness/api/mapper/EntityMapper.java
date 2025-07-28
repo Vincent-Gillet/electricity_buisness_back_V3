@@ -33,6 +33,7 @@ public class EntityMapper {
                 utilisateur.getEmailUtilisateur(),
                 utilisateur.getRole(),
                 utilisateur.getDateDeNaissance(),
+                utilisateur.getTelephone(),
                 utilisateur.getIban(),
                 utilisateur.getBanni()
         );
@@ -47,6 +48,7 @@ public class EntityMapper {
         utilisateur.setRole(dto.getRole());
         utilisateur.setEmailUtilisateur(dto.getEmailUtilisateur());
         utilisateur.setDateDeNaissance(dto.getDateDeNaissance());
+        utilisateur.setTelephone(dto.getTelephone());
         utilisateur.setIban(dto.getIban());
         utilisateur.setBanni(dto.getBanni());
         return utilisateur;
@@ -62,7 +64,8 @@ public class EntityMapper {
                 utilisateur.getPseudo(),
                 utilisateur.getMotDePasseUtilisateur(),
                 utilisateur.getEmailUtilisateur(),
-                utilisateur.getDateDeNaissance()
+                utilisateur.getDateDeNaissance(),
+                utilisateur.getTelephone()
         );
     }
 
@@ -76,6 +79,7 @@ public class EntityMapper {
         utilisateur.setMotDePasseUtilisateur(passwordEncoder.encode(dto.getUtilisateurMotDePasse()));
         utilisateur.setEmailUtilisateur(dto.getUtilisateurEmail());
         utilisateur.setDateDeNaissance(dto.getDateDeNaissance());
+        utilisateur.setTelephone(dto.getTelephone());
         utilisateur.setIban(null);
         utilisateur.setBanni(false);
 
@@ -90,6 +94,7 @@ public class EntityMapper {
         existing.setPseudo(dto.getPseudo());
         existing.setEmailUtilisateur(dto.getEmailUtilisateur());
         existing.setDateDeNaissance(dto.getDateDeNaissance());
+        existing.setTelephone(dto.getTelephone());
         existing.setIban(dto.getIban());
         return existing;
     }
@@ -102,6 +107,7 @@ public class EntityMapper {
                 utilisateur.getPseudo(),
                 utilisateur.getEmailUtilisateur(),
                 utilisateur.getDateDeNaissance(),
+                utilisateur.getTelephone(),
                 utilisateur.getIban()
         );
     }
@@ -151,6 +157,7 @@ public class EntityMapper {
         borne.setNomBorne(dto.getNomBorne());
         borne.setLatitude(dto.getLatitude());
         borne.setLongitude(dto.getLongitude());
+        borne.setTarif(dto.getTarif());
         borne.setPuissance(dto.getPuissance());
         borne.setInstruction(dto.getInstruction());
         borne.setSurPied(dto.getSurPied());
@@ -160,6 +167,10 @@ public class EntityMapper {
         borne.setDerniereMaintenance(dto.getDerniereMaintenance());
         return borne;
     }
+
+    // === BORNE SEARCH ===
+
+
 
     // === VEHICULE ===
 

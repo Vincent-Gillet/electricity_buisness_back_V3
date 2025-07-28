@@ -79,6 +79,11 @@ public class Utilisateur implements UserDetails {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateDeNaissance;
 
+    @Column(name = "telephone")
+    @NotBlank(message = "Le numéro de téléphone est obligatoire")
+    @Length(min = 10, max = 15)
+    private String telephone;
+
     @Column(name = "iban", unique = true)
     @Length(min = 27, max = 27)
     private String iban;

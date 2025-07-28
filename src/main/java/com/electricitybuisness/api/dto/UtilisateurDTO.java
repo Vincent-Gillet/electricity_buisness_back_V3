@@ -1,6 +1,7 @@
 package com.electricitybuisness.api.dto;
 
 import com.electricitybuisness.api.model.RoleUtilisateur;
+import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Past;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
 
@@ -38,6 +40,10 @@ public class UtilisateurDTO {
 
     @Past(message = "La date de naissance doit être dans le passé")
     private LocalDate dateDeNaissance;
+
+    @NotBlank(message = "Le numéro de téléphone est obligatoire")
+    @Length(min = 10, max = 15)
+    private String telephone;
 
     private String iban;
 

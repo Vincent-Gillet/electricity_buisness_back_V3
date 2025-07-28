@@ -6,8 +6,8 @@ POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
 {
-  "emailUtilisateur": "martin@gmail.com",
-  "motDePasseUtilisateur": "azerty"
+  "utilisateurEmail": "martin@gmail.com",
+  "utilisateurMotDePasse": "azerty"
 }
 
 ### Récupérer la liste des utilisateurs
@@ -23,10 +23,11 @@ Content-Type: application/json
 {
   "utilisateurNom": "Martin",
   "prenom": "Jean",
-  "pseudo": "johndeo",
+  "pseudo": "paul",
   "utilisateurMotDePasse": "azerty",
-  "utilisateurEmail": "martin@gmail.com",
-  "dateDeNaissance": "2008-03-06"
+  "utilisateurEmail": "paul@gmail.com",
+  "dateDeNaissance": "2008-03-06",
+  "telephone": "0123456789"
 }
 
 ### Mettre à jour un utilisateur par son ID
@@ -48,10 +49,87 @@ DELETE http://127.0.0.1:8080/api/utilisateurs/1
 ### Récupérer la liste des bornes
 
 GET http://localhost:8080/api/bornes
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJ0aW5AZ21haWwuY29tIiwiaWF0IjoxNzUzMjYwOTQ2LCJleHAiOjE3NTMyNjEwMDZ9.MCMbkQq4sHU3cIRficUeYqrm9lVgRUAWF27NwU566Vs
+
+### Récupérer une borne par son ID
+GET http://localhost:8080/api/bornes/1
+
+
+
+### Récupérer la liste des bornes à proximité d'un point
+GET http://localhost:8080/api/bornes/2.287592/48.862525/50
+
+
+### Récupérer la liste des bornes à proximité d'un point et disponibiles
+GET http://localhost:8080/api/bornes/2.287592/48.862525/50/false
+
+
+### Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes?longitude=2.287592&latitude=48.862525&rayon=50&occupee=false&dateDebut=2023-07-23T21:02:44&dateFin=2026-07-23T21:02:48
+
+
+### V2 Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes?longitude=2.287592&latitude=48.862525&rayon=50&dateDebut=2023-07-23T21:02:44&dateFin=2026-07-23T21:02:48
+
+### V3 Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes/non-occupees
+
+### V4 Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes/recherche-bornes-disponibilites-rayon?longitude=2.287592&latitude=48.862525&rayon=50
+
+### V4 test Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes/recherche-bornes-disponibilites-rayon?longitude=2.287592&latitude=48.862525&rayon=50&occupee=false
+
+### V4 test 2 Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes/recherche-bornes-disponibilites-rayon?longitude=2.287592&latitude=48.862525&rayon=50&occupee=true
+
+### V6 Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes/recherche-bornes-dates-disponibilites?occupee=false&dateDebut=2033-07-23T21:02:44&dateFin=2036-07-23T21:02:48
+
+
+### V5 Fonctionne pas dynamique Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes/recherche-bornes-dates-disponibilites-rayon?longitude=2.287592&latitude=48.862525&rayon=5000&dateDebut=2033-07-23T21:02:44&dateFin=2036-07-23T21:02:48
+
+
+### V10 test1 Fonctionne pas dynamique Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes/recherche?longitude=2.287592&latitude=48.862525&rayon=5000
+### V10 test2 Fonctionne pas dynamique Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes/recherche?longitude=2.287592&latitude=48.862525&rayon=5000&occupee=true
+### V10 test3 Fonctionne pas dynamique Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes/recherche?longitude=2.287592&latitude=48.862525&rayon=5000&occupee=true&dateDebut=2033-07-23T21:02:44&dateFin=2036-07-23T21:02:48
 
 
 
 
+### V20 Creteria Fonctionne pas dynamique Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes/search-bornes?longitude=2.287592&latitude=48.862525&rayon=50&dateDebut=2033-07-23T21:02:44&dateFin=2036-07-23T21:02:48
+### V20 Creteria Fonctionne pas dynamique Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes/search-bornes?longitude=2.287592&latitude=48.862525&rayon=50
+### V20 Creteria Fonctionne pas dynamique Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes/search-bornes?longitude=2.287592&latitude=48.862525&rayon=50000
+### V20 Creteria Fonctionne pas dynamique Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes/search-bornes?dateDebut=2033-07-23T21:02:44&dateFin=2036-07-23T21:02:48
 
+
+
+
+### Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes/2.287592/48.862525/50/false/2033-07-23T21:02:44/2033-07-23T21:02:48
+
+
+### Récupérer la liste des bornes à proximité d'un point, disponibiles et dans une période donnée
+GET http://localhost:8080/api/bornes/2.287592/48.862525/50/false/2033-07-23T21%3A02%3A44/2033-07-23T21%3A02%3A48
+
+
+### Récupérer la liste des bornes à proximité d'un point
+POST http://localhost:8080/api/bornes/search
+Content-Type: application/json
+
+{
+  "longitude": 2.287592,
+  "latitude": 48.862525,
+  "rayon": 50,
+  "occupee": false,
+  "dateDebut": "2023-07-23T21:02:44",
+  "dateFin": "2023-07-23T21:02:48"
+}
 
